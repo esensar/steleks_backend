@@ -1,4 +1,4 @@
-package ba.steleks.service.users;
+package ba.steleks;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
