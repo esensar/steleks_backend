@@ -1,3 +1,20 @@
+bin/
+gen/
+
+local.properties
+
+proguard/
+
+*.iml
+*.ipr
+*.iws
+.idea/
+
+.gradletasknamecache
+.gradle/
+build/
+bin/
+
 *.class
 
 # Mobile Tools for Java (J2ME)
