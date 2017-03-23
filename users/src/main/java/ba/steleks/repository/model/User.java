@@ -2,10 +2,8 @@ package ba.steleks.repository.model;/**
  * Created by ensar on 22/03/17.
  */
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @Entity
@@ -28,6 +26,10 @@ public class User {
     private String profilePictureUrl;
     private long courseId;
     private long membershipTypeId;
+
+    @ManyToMany
+    @JoinColumn
+    private Set<UserRole> userRoles;
 
     public long getId() {
         return id;
@@ -123,5 +125,13 @@ public class User {
 
     public void setMembershipTypeId(long membershipTypeId) {
         this.membershipTypeId = membershipTypeId;
+    }
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }
