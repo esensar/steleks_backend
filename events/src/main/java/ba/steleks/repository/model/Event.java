@@ -91,4 +91,12 @@ public class Event {
         this.eventType = eventType;
     }
 
+    public Set<Media> getMediaSet() {
+        return mediaSet;
+    }
+
+    public void setMediaSet(Set<Media> mediaSet) {
+        this.mediaSet = mediaSet;
+    }
+
 }
