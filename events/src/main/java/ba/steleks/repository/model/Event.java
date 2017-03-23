@@ -23,6 +23,8 @@ public class Event {
     private String createdById;
     private String eventType;
 
+    protected Event() {}
+
     public long getId() {
         return id;
     }
