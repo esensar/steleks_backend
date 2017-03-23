@@ -8,5 +8,4 @@ import ba.steleks.repository.model.UserRole;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface UsersJpaRepository extends PagingAndSortingRepository<UserRole, Long> {
-
 }

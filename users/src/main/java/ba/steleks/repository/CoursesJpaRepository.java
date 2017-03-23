@@ -4,9 +4,9 @@ package ba.steleks.repository;
  * Created by ensar on 22/03/17.
  */
 
-import ba.steleks.repository.model.User;
+import ba.steleks.repository.model.Course;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 
-public interface UserRolesJpaRepository extends PagingAndSortingRepository<User, Long> {
+public interface CoursesJpaRepository extends PagingAndSortingRepository<Course, Long> {
 }
