@@ -22,10 +22,18 @@ public class User {
     private String email;
     private String contactNumber;
     private String passwordHash;
+
     private String username;
+
     private String profilePictureUrl;
-    private long courseId;
-    private long membershipTypeId;
+
+    @ManyToMany
+    @JoinColumn
+    private Set<Course> courses;
+
+    @ManyToMany
+    @JoinColumn
+    private Set<MembershipType> membershipTypes;
 
     @ManyToMany
     @JoinColumn
@@ -111,20 +119,20 @@ public class User {
         this.profilePictureUrl = profilePictureUrl;
     }
 
-    public long getCourseId() {
-        return courseId;
+    public Set<Course> getCourses() {
+        return courses;
     }
 
-    public void setCourseId(long courseId) {
-        this.courseId = courseId;
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 
-    public long getMembershipTypeId() {
-        return membershipTypeId;
+    public Set<MembershipType> getMembershipTypes() {
+        return membershipTypes;
     }
 
-    public void setMembershipTypeId(long membershipTypeId) {
-        this.membershipTypeId = membershipTypeId;
+    public void setMembershipTypes(Set<MembershipType> membershipTypes) {
+        this.membershipTypes = membershipTypes;
     }
 
     public Set<UserRole> getUserRoles() {
