@@ -1,10 +1,8 @@
 package ba.steleks.repository.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * Created by admin on 22/03/2017.
@@ -20,8 +18,12 @@ public class Event {
     private String longText;
     private Timestamp dateTime;
     private int duration;
-    private String createdById;
+    private long createdById;
     private String eventType;
+
+    @ManyToMany
+    @JoinColumn
+    private Set<Media> mediaSet;
 
     protected Event() {}
 
@@ -73,11 +75,11 @@ public class Event {
         this.duration = duration;
     }
 
-    public String getCreatedById() {
+    public long getCreatedById() {
         return createdById;
     }
 
-    public void setCreatedById(String createdById) {
+    public void setCreatedById(long createdById) {
         this.createdById = createdById;
     }
 
