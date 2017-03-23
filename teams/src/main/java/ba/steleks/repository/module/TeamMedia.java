@@ -6,6 +6,7 @@ import java.util.Set;
 /**
  * Created by admin on 23/03/2017.
  */
+@Entity
 public class TeamMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
