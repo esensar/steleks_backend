@@ -5,12 +5,12 @@ package ba.steleks.repository;
  */
 
 import ba.steleks.repository.model.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 
-public interface UserRolesJpaRepository extends CrudRepository<User, Long> {
+public interface UserRolesJpaRepository extends PagingAndSortingRepository<User, Long> {
     List<User> findByUsername(@Param("username") String username);
 }
