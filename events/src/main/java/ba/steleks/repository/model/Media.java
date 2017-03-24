@@ -19,7 +19,7 @@ public class Media {
 
     private String contentUrl;
     private Date creationDate;
-    private String createdById;
+    private long createdById;
 
     public Media() {
     }
@@ -48,11 +48,11 @@ public class Media {
         this.creationDate = creationDate;
     }
 
-    public String getCreatedById() {
+    public long getCreatedById() {
         return createdById;
     }
 
-    public void setCreatedById(String createdById) {
+    public void setCreatedById(long createdById) {
         this.createdById = createdById;
     }
 }

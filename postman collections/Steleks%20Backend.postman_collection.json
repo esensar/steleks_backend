@@ -1,0 +1,479 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Steleks Backend",
+		"_postman_id": "ef580742-4589-8237-e6de-a870eb8253e9",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Courses",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All Courses",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/courses",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Course",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/courses",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"courseName\":\"TRECA\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"url": "http://{{url}}:{{eventsPort}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "\nvar jsonData = JSON.parse(responseBody);\nvar arr = jsonData._links.self.href.split(\"/\");\npostman.setEnvironmentVariable(\"eventId\", arr[4]);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://{{url}}:{{eventsPort}}/events",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Testni\",\n    \"shortText\":\"Txt\",\n    \"longText\":\"Textcina\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Events",
+					"request": {
+						"url": "http://{{url}}:{{eventsPort}}/events",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Testni\",\n    \"shortText\":\"Txt\",\n    \"longText\":\"Textcina\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event",
+					"request": {
+						"url": "http://{{url}}:{{eventsPort}}/events/{{eventId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Testni\",\n    \"shortText\":\"Txt\",\n    \"longText\":\"Textcina\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event Medias",
+					"request": {
+						"url": "http://{{url}}:{{eventsPort}}/events/{{eventId}}/mediaSet",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Testni\",\n    \"shortText\":\"Txt\",\n    \"longText\":\"Textcina\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Media To Event",
+					"request": {
+						"url": "http://{{url}}:{{eventsPort}}/events/{{eventId}}/mediaSet",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{url}}:{{eventsPort}}/medias/1"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Media",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Media",
+					"request": {
+						"url": "http://{{url}}:{{eventsPort}}/medias",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contentUrl\":\"http://www.google.com\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Medias",
+					"request": {
+						"url": "http://{{url}}:{{eventsPort}}/medias",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Membership Types",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All Membership Types",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/membershipTypes",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Membership Type",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/membershipTypes",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"membershipTypeName\":\"TRECA\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All User Roles",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/userRoles",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Role",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/userRoles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roleName\":\"TRECA\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/users",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "\nvar jsonData = JSON.parse(responseBody);\nvar arr = jsonData._links.self.href.split(\"/\");\npostman.setEnvironmentVariable(\"userId\", arr[4]);"
+							}
+						}
+					],
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\":\"Testni\",\n    \"lastName\":\"User\",\n    \"username\":\"Juzernejm\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Roles To User",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/userRoles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{url}}:{{usersPort}}/userRoles/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Roles",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/userRoles",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Courses To User",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/courses",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{url}}:{{usersPort}}/courses/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Courses",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/courses",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Membership Types To User",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/membershipTypes",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{url}}:{{usersPort}}/membershipTypes/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Membership Types",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/membershipTypes",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"url": "http://{{url}}:{{usersPort}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
