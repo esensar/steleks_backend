@@ -1,10 +1,8 @@
 package ba.steleks.repository.module;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.security.auth.Subject;
+import java.util.Set;
 
 /**
  * Created by admin on 23/03/2017.
@@ -19,8 +17,20 @@ public class Team {
     private long subjectId;
     private int position;
     private double gradesOrPoints;
-    private long contentId;
+
+    @ManyToOne
+    @JoinColumn
+    private TeamCategory teamCategory;
+
     private long eventId;
+
+    @ManyToMany
+    @JoinColumn
+    private Set<Participant> participantSet;
+
+    @ManyToMany
+    @JoinColumn
+    private Set<TeamMedia> teamMediaSet;
 
     protected Team() {
     }
@@ -57,12 +67,12 @@ public class Team {
         this.gradesOrPoints = gradesOrPoints;
     }
 
-    public long getContentId() {
-        return contentId;
+    public TeamCategory getContentId() {
+        return teamCategory;
     }
 
-    public void setContentId(long contentId) {
-        this.contentId = contentId;
+    public void setContentId(TeamCategory contentId) {
+        this.teamCategory = contentId;
     }
 
     public long getEventId() {
@@ -73,5 +83,11 @@ public class Team {
         this.eventId = eventId;
     }
 
+    public Set<Participant> getParticipantSet() {
+        return participantSet;
+    }
 
+    public void setParticipantSet(Set<Participant> participantSet) {
+        this.participantSet = participantSet;
+    }
 }

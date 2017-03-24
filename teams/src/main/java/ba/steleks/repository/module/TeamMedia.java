@@ -13,9 +13,6 @@ public class TeamMedia {
     private long id;
 
     private String contentUrl;
-    @ManyToMany
-    @JoinColumn
-    private Set<TeamMedia> teamMediaSet;
 
 
     protected TeamMedia() {

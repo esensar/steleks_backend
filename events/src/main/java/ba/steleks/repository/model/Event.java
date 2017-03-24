@@ -19,7 +19,9 @@ public class Event {
     private Timestamp dateTime;
     private int duration;
     private long createdById;
-    private String eventType;
+    @ManyToOne
+    @JoinColumn
+    private EventType eventType;
 
     @ManyToMany
     @JoinColumn
@@ -83,11 +85,11 @@ public class Event {
         this.createdById = createdById;
     }
 
-    public String getEventType() {
+    public EventType getEventType() {
         return eventType;
     }
 
-    public void setEventType(String eventType) {
+    public void setEventType(EventType eventType) {
         this.eventType = eventType;
     }
 
