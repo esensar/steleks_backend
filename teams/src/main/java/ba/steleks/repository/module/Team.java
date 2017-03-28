@@ -90,4 +90,20 @@ public class Team {
     public void setParticipantSet(Set<Participant> participantSet) {
         this.participantSet = participantSet;
     }
+
+    public TeamCategory getTeamCategory() {
+        return teamCategory;
+    }
+
+    public void setTeamCategory(TeamCategory teamCategory) {
+        this.teamCategory = teamCategory;
+    }
+
+    public Set<TeamMedia> getTeamMediaSet() {
+        return teamMediaSet;
+    }
+
+    public void setTeamMediaSet(Set<TeamMedia> teamMediaSet) {
+        this.teamMediaSet = teamMediaSet;
+    }
 }
