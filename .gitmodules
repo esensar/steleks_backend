@@ -1,0 +1,3 @@
+[submodule "config"]
+	path = config
+	url = git@github.com:esensar/steleks_config.git
