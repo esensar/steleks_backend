@@ -501,7 +501,7 @@
 					"name": "Add Category To Team",
 					"request": {
 						"url": "http://{{url}}:{{teamsPort}}/teams/{{teamId}}/teamCategory",
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
