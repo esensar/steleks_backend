@@ -37,7 +37,7 @@ class MessageRestController {
 	//	return "temp " + Long.toString(id);
 	//}
 
-	@RequestMapping(value = "/whoami/{user}", method = RequestMethod.GET)
+	@RequestMapping(value = "/whoami/{username}", method = RequestMethod.GET)
 	public String whoami(@PathVariable("username") String username) {
 		return String.format("Hello! You're %s and you'll become a(n) root, " +
 		"but only if your password is '%s'!\n",

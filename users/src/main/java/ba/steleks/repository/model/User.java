@@ -2,7 +2,13 @@ package ba.steleks.repository.model;/**
  * Created by ensar on 22/03/17.
  */
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -15,14 +21,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotNull
     private int cardNumber;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
-    private String registrationDate;
+    @NotNull
+    @Column(updatable = false, insertable = false)
+    private Timestamp registrationDate;
+    @NotNull
     private String email;
+    @NotNull
     private String contactNumber;
+    @NotNull
     private String passwordHash;
-
+    @NotNull
     private String username;
 
     private String profilePictureUrl;
@@ -71,11 +85,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getRegistrationDate() {
+    public Timestamp getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(String registrationDate) {
+    public void setRegistrationDate(Timestamp registrationDate) {
         this.registrationDate = registrationDate;
     }
 
@@ -141,5 +155,10 @@ public class User {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.registrationDate = new Timestamp(new Date().getTime());
     }
 }
