@@ -1,5 +1,7 @@
 package ba.steleks.repository;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import jdk.nashorn.internal.runtime.JSONFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
@@ -13,35 +15,33 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by admin on 01/04/2017.
  */
 @ControllerAdvice
-public class GlobalExceptionController {
+public class RestErrorHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(CustomGenericException.class)
-    public ModelAndView handleCustomException(CustomGenericException ex) {
+    @ExceptionHandler(javax.validation.ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public Map<String, String> handleCustomException(javax.validation.ConstraintViolationException ex) {
 
-        ModelAndView model = new ModelAndView("error/generic_error");
-        model.addObject("errCode", ex.getErrCode());
-        model.addObject("errMsg", ex.getErrMsg());
+        Map<String, String> map= new HashMap<String, String>();
+        map.put("status", "400");
+        map.put("error", "Bad request");
 
-        return model;
-
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ModelAndView handleAllException(Exception ex) {
-
-        ModelAndView model = new ModelAndView("error/generic_error");
-        model.addObject("errMsg", "this is Exception.class");
-
-        return model;
+        return map;
 
     }
+
+
 
 }

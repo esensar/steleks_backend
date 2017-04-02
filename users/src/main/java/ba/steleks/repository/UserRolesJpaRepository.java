@@ -5,8 +5,9 @@ package ba.steleks.repository;
  */
 
 import ba.steleks.repository.model.User;
+import ba.steleks.repository.model.UserRole;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 
-public interface UserRolesJpaRepository extends PagingAndSortingRepository<User, Long> {
+public interface UserRolesJpaRepository extends PagingAndSortingRepository<UserRole, Long> {
 }
