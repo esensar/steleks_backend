@@ -24,7 +24,7 @@ public class User {
     private String firstName;
     @NotNull
     private String lastName;
-    @Column(updatable = false, insertable = false, columnDefinition="DATETIME default NOW()")
+    @NotNull
     private Timestamp registrationDate;
     @NotNull
     private String email;
