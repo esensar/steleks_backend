@@ -1,10 +1,9 @@
-package ba.steleks.repository.module;
+package ba.steleks.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.Serializable;
 
 /**
  * Created by admin on 24/03/2017.

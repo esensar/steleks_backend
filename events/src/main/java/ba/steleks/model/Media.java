@@ -1,10 +1,8 @@
-package ba.steleks.repository.model;
+package ba.steleks.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by admin on 23/03/2017.
@@ -18,7 +16,8 @@ public class Media {
     private long id;
 
     private String contentUrl;
-    private Date creationDate;
+    @Column(updatable = false, insertable = false)
+    private Timestamp creationDate;
     private long createdById;
 
     public Media() {
@@ -40,11 +39,11 @@ public class Media {
         this.contentUrl = contentUrl;
     }
 
-    public Date getCreationDate() {
+    public Timestamp getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -54,5 +53,11 @@ public class Media {
 
     public void setCreatedById(long createdById) {
         this.createdById = createdById;
+    }
+
+    @PrePersist
+    @PreUpdate
+    protected void onCreate() {
+        this.creationDate = new Timestamp(new Date().getTime());
     }
 }

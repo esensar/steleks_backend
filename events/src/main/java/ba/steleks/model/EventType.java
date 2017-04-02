@@ -1,4 +1,4 @@
-package ba.steleks.repository.model;
+package ba.steleks.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

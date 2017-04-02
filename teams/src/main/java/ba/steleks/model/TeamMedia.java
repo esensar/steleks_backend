@@ -1,7 +1,6 @@
-package ba.steleks.repository.module;
+package ba.steleks.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Created by admin on 23/03/2017.

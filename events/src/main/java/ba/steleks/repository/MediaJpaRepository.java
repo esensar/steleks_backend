@@ -1,6 +1,6 @@
 package ba.steleks.repository;
 
-import ba.steleks.repository.model.Media;
+import ba.steleks.model.Media;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**

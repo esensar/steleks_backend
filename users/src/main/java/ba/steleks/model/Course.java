@@ -1,5 +1,5 @@
-package ba.steleks.repository.model;/**
- * Created by ensar on 22/03/17.
+package ba.steleks.model;/**
+ * Created by ensar on 23/03/17.
  */
 
 import javax.persistence.Entity;
@@ -9,15 +9,15 @@ import javax.persistence.Id;
 import java.util.logging.Logger;
 
 @Entity
-public class UserRole {
+public class Course {
     private static final Logger logger =
-            Logger.getLogger(UserRole.class.getName());
+            Logger.getLogger(Course.class.getName());
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String roleName;
+    private String courseName;
 
     public long getId() {
         return id;
@@ -27,11 +27,11 @@ public class UserRole {
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }

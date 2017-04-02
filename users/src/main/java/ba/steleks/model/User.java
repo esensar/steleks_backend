@@ -1,12 +1,9 @@
-package ba.steleks.repository.model;/**
+package ba.steleks.model;/**
  * Created by ensar on 22/03/17.
  */
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
@@ -27,8 +24,7 @@ public class User {
     private String firstName;
     @NotNull
     private String lastName;
-    @NotNull
-    @Column(updatable = false, insertable = false)
+    @Column(updatable = false, insertable = false, columnDefinition="DATETIME default NOW()")
     private Timestamp registrationDate;
     @NotNull
     private String email;
@@ -161,4 +157,5 @@ public class User {
     protected void onCreate() {
         this.registrationDate = new Timestamp(new Date().getTime());
     }
+
 }

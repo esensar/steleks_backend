@@ -1,6 +1,6 @@
 package ba.steleks.repository;
 
-import ba.steleks.repository.module.Participant;
+import ba.steleks.model.Participant;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**

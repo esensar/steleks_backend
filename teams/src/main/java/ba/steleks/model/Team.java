@@ -1,7 +1,6 @@
-package ba.steleks.repository.module;
+package ba.steleks.model;
 
 import javax.persistence.*;
-import javax.security.auth.Subject;
 import java.util.Set;
 
 /**

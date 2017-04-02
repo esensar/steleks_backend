@@ -1,6 +1,6 @@
 package ba.steleks.repository;
 
-import ba.steleks.repository.module.TeamMedia;
+import ba.steleks.model.TeamMedia;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 

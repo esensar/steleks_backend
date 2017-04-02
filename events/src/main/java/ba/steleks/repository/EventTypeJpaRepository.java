@@ -1,6 +1,6 @@
 package ba.steleks.repository;
 
-import ba.steleks.repository.model.EventType;
+import ba.steleks.model.EventType;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
