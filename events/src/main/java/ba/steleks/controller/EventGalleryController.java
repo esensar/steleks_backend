@@ -3,7 +3,6 @@ package ba.steleks.controller;
 import ba.steleks.error.exception.ExternalServiceException;
 import ba.steleks.model.Media;
 import ba.steleks.repository.MediaJpaRepository;
-import ba.steleks.storage.error.exception.StorageFileNotFoundException;
 import ba.steleks.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -71,10 +70,5 @@ public class EventGalleryController {
         repository.save(media);
 
         return "redirect:/";
-    }
-
-    @ExceptionHandler(StorageFileNotFoundException.class)
-    public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
-        return ResponseEntity.notFound().build();
     }
 }
