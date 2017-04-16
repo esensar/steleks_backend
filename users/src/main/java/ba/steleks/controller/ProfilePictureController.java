@@ -1,11 +1,13 @@
 package ba.steleks.controller;
 
+import ba.steleks.error.exception.ExternalServiceException;
 import ba.steleks.model.User;
 import ba.steleks.repository.UsersJpaRepository;
+import ba.steleks.service.Service;
+import ba.steleks.service.discovery.ServiceDiscoveryClient;
 import ba.steleks.storage.StorageFileNotFoundException;
 import ba.steleks.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,18 +24,20 @@ public class ProfilePictureController {
 
     private final StorageService storageService;
     private final UsersJpaRepository repository;
+    private final ServiceDiscoveryClient discoveryClient;
 
     @Autowired
-    public ProfilePictureController(StorageService storageService, UsersJpaRepository repository) {
+    public ProfilePictureController(StorageService storageService, UsersJpaRepository repository, ServiceDiscoveryClient discoveryClient) {
         this.storageService = storageService;
         this.repository = repository;
+        this.discoveryClient = discoveryClient;
     }
 
     @GetMapping("/profilePictures/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
-        Resource file = storageService.loadAsResource(filename);
+        Resource file = storageService.loadAsResource("profilePictures/"+ filename);
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
@@ -42,7 +46,9 @@ public class ProfilePictureController {
 
     @PostMapping("/users/{userId}/profilePicture")
     public String handleFileUpload(@PathVariable Long userId, @RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
+                                   RedirectAttributes redirectAttributes) throws ExternalServiceException {
+
+        String usersServiceBase = discoveryClient.getServiceUrl(Service.USERS);
 
         String[] names = file.getOriginalFilename().split("\\.");
         String dest = String.valueOf("profilePictures/" + userId + "_" + new Date().getTime()) + "." + names[names.length - 1];
@@ -51,7 +57,7 @@ public class ProfilePictureController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
         User user = repository.findOne(userId);
-        user.setProfilePictureUrl("http://localhost:8090" + dest);
+        user.setProfilePictureUrl(usersServiceBase + "/" + dest);
         repository.save(user);
 
         return "redirect:/";

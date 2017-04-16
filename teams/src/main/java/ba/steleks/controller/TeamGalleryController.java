@@ -3,6 +3,8 @@ package ba.steleks.controller;
 import ba.steleks.error.exception.ExternalServiceException;
 import ba.steleks.model.TeamMedia;
 import ba.steleks.repository.TeamsMediaJpaRepository;
+import ba.steleks.service.Service;
+import ba.steleks.service.discovery.ServiceDiscoveryClient;
 import ba.steleks.storage.StorageFileNotFoundException;
 import ba.steleks.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,10 @@ public class TeamGalleryController {
 
     private final StorageService storageService;
     private final TeamsMediaJpaRepository repository;
-    private final DiscoveryClient discoveryClient;
+    private final ServiceDiscoveryClient discoveryClient;
 
     @Autowired
-    public TeamGalleryController(StorageService storageService, TeamsMediaJpaRepository repository, DiscoveryClient discoveryClient) {
+    public TeamGalleryController(StorageService storageService, TeamsMediaJpaRepository repository, ServiceDiscoveryClient discoveryClient) {
         this.storageService = storageService;
         this.repository = repository;
         this.discoveryClient=discoveryClient;
@@ -50,14 +52,8 @@ public class TeamGalleryController {
     public String handleFileUpload(@PathVariable Long mediaId, @RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) throws ExternalServiceException {
 
-        List<ServiceInstance> usersInstances = discoveryClient.getInstances("teams");
-        if(usersInstances == null || usersInstances.size() == 0) {
-            System.err.print("Users service not found!");
-            throw new ExternalServiceException();
-        }
 
-        ServiceInstance usersService = usersInstances.get(0);
-        String mediaServiceBase = usersService.getUri().toString();
+        String mediaServiceBase = discoveryClient.getServiceUrl(Service.TEAMS);
 
         String[] names = file.getOriginalFilename().split("\\.");
         String dest = String.valueOf("teamPictures/" + mediaId + "_" + new Date().getTime()) + "." + names[names.length - 1];
