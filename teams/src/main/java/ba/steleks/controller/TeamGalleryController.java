@@ -1,9 +1,9 @@
 package ba.steleks.controller;
 
 import ba.steleks.error.exception.ExternalServiceException;
-import ba.steleks.model.Media;
-import ba.steleks.repository.MediaJpaRepository;
-import ba.steleks.storage.error.exception.StorageFileNotFoundException;
+import ba.steleks.model.TeamMedia;
+import ba.steleks.repository.TeamsMediaJpaRepository;
+import ba.steleks.storage.StorageFileNotFoundException;
 import ba.steleks.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -22,35 +22,35 @@ import java.util.List;
  * Created by admin on 16/04/2017.
  */
 @RestController
-public class EventGalleryController {
+public class TeamGalleryController {
 
     private final StorageService storageService;
-    private final MediaJpaRepository repository;
+    private final TeamsMediaJpaRepository repository;
     private final DiscoveryClient discoveryClient;
 
     @Autowired
-    public EventGalleryController(StorageService storageService, MediaJpaRepository repository, DiscoveryClient discoveryClient) {
+    public TeamGalleryController(StorageService storageService, TeamsMediaJpaRepository repository, DiscoveryClient discoveryClient) {
         this.storageService = storageService;
         this.repository = repository;
         this.discoveryClient=discoveryClient;
     }
 
-    @GetMapping("/eventPictures/{filename:.+}")
+    @GetMapping("/teamPictures/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
-        Resource file = storageService.loadAsResource("mediaEvent/"+filename);
+        Resource file = storageService.loadAsResource("teamPictures/"+filename);
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
                 .body(file);
     }
 
-    @PostMapping("/media/{mediaId}/picture")
+    @PostMapping("/teamMedia/{mediaId}/picture")
     public String handleFileUpload(@PathVariable Long mediaId, @RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) throws ExternalServiceException {
 
-        List<ServiceInstance> usersInstances = discoveryClient.getInstances("events");
+        List<ServiceInstance> usersInstances = discoveryClient.getInstances("teams");
         if(usersInstances == null || usersInstances.size() == 0) {
             System.err.print("Users service not found!");
             throw new ExternalServiceException();
@@ -60,15 +60,16 @@ public class EventGalleryController {
         String mediaServiceBase = usersService.getUri().toString();
 
         String[] names = file.getOriginalFilename().split("\\.");
-        String dest = String.valueOf("mediaEvent/" + mediaId + "_" + new Date().getTime()) + "." + names[names.length - 1];
+        String dest = String.valueOf("teamPictures/" + mediaId + "_" + new Date().getTime()) + "." + names[names.length - 1];
         storageService.store(file, dest);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        Media media = repository.findOne(mediaId);
-        media.setContentUrl(mediaServiceBase +"/" + dest);
+        TeamMedia teamMedia = repository.findOne(mediaId);
 
-        repository.save(media);
+        teamMedia.setContentUrl(mediaServiceBase +"/"+ dest);
+
+        repository.save(teamMedia);
 
         return "redirect:/";
     }
@@ -77,4 +78,5 @@ public class EventGalleryController {
     public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
     }
+
 }

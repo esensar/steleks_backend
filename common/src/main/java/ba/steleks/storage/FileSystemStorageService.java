@@ -37,7 +37,9 @@ public class FileSystemStorageService implements StorageService {
             String[] locations=this.rootLocation.resolve(dest).toString().split("/");
             for(int i=0; i<locations.length-1;i++)
                     tempDest=tempDest+"/"+locations[i];
-            Files.createDirectory(Paths.get(tempDest));
+
+            if(!Files.exists(Paths.get(tempDest)))
+                Files.createDirectory(Paths.get(tempDest));
 
             Files.copy(file.getInputStream(),
                     this.rootLocation.resolve(dest));
