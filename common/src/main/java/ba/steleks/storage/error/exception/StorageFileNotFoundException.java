@@ -1,4 +1,4 @@
-package ba.steleks.storage;
+package ba.steleks.storage.error.exception;
 
 
 public class StorageFileNotFoundException extends StorageException {

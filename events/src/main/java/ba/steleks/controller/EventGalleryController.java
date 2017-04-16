@@ -2,9 +2,8 @@ package ba.steleks.controller;
 
 import ba.steleks.error.exception.ExternalServiceException;
 import ba.steleks.model.Media;
-import ba.steleks.repository.EventsJpaRepository;
 import ba.steleks.repository.MediaJpaRepository;
-import ba.steleks.storage.StorageFileNotFoundException;
+import ba.steleks.storage.error.exception.StorageFileNotFoundException;
 import ba.steleks.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;

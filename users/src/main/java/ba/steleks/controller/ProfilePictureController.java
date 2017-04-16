@@ -2,10 +2,8 @@ package ba.steleks.controller;
 
 import ba.steleks.model.User;
 import ba.steleks.repository.UsersJpaRepository;
-import ba.steleks.storage.StorageFileNotFoundException;
 import ba.steleks.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,10 +53,5 @@ public class ProfilePictureController {
         repository.save(user);
 
         return "redirect:/";
-    }
-
-    @ExceptionHandler(StorageFileNotFoundException.class)
-    public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
-        return ResponseEntity.notFound().build();
     }
 }
