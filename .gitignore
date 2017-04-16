@@ -22,6 +22,7 @@ bin/
 
 # Package Files #
 *.jar
+!gradle/*.jar
 *.war
 *.ear
 
