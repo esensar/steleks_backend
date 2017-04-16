@@ -6,6 +6,8 @@ import ba.steleks.error.exception.ExternalServiceException;
 import ba.steleks.model.Event;
 import ba.steleks.model.Media;
 import ba.steleks.repository.MediaJpaRepository;
+import ba.steleks.service.Service;
+import ba.steleks.service.discovery.ServiceDiscoveryClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
@@ -25,19 +27,21 @@ public class MediaController {
 
     private MediaJpaRepository repository;
     private RestTemplate restTemplate;
+    private ServiceDiscoveryClient discoveryClient;
 
     @Autowired
-    public MediaController(RestTemplateBuilder restTemplateBuilder, MediaJpaRepository repository) {
+    public MediaController(MediaJpaRepository repository, RestTemplate restTemplate, ServiceDiscoveryClient discoveryClient) {
         this.repository = repository;
-        this.restTemplate = restTemplateBuilder.build();
+        this.restTemplate = restTemplate;
+        this.discoveryClient = discoveryClient;
     }
 
     @RequestMapping(path = "/medias", method = RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody Media media) throws ExternalServiceException {
 
-        String oviUseriNeki = "http://localhost:8090/users/{id}";
+        String usersServiceBase = discoveryClient.getServiceUrl(Service.USERS);
         try {
-            String response = restTemplate.getForObject(oviUseriNeki, String.class, media.getCreatedById());
+            String response = restTemplate.getForObject(usersServiceBase + "/users/{id}", String.class, media.getCreatedById());
             Media result = repository.save(media);
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest().path("/{id}")
