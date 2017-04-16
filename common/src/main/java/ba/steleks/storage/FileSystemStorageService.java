@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.FileOwnerAttributeView;
 import java.util.stream.Stream;
 
 @Service
@@ -30,6 +31,13 @@ public class FileSystemStorageService implements StorageService {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
+
+            String tempDest="";
+            String[] locations=this.rootLocation.resolve(dest).toString().split("/");
+            for(int i=0; i<locations.length-1;i++)
+                    tempDest=tempDest+"/"+locations[i];
+            Files.createDirectory(Paths.get(tempDest));
+
             Files.copy(file.getInputStream(),
                     this.rootLocation.resolve(dest));
         } catch (IOException e) {
