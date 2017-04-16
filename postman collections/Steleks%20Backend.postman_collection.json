@@ -680,7 +680,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "http://{{url}}:{{usersPort}}/userRoles/1"
+							"raw": "http://{{usersUrl}}/userRoles/1"
 						},
 						"description": ""
 					},
