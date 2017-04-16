@@ -30,9 +30,9 @@ public class MediaController {
     private ServiceDiscoveryClient discoveryClient;
 
     @Autowired
-    public MediaController(MediaJpaRepository repository, RestTemplate restTemplate, ServiceDiscoveryClient discoveryClient) {
+    public MediaController(MediaJpaRepository repository, RestTemplateBuilder restTemplateBuilder, ServiceDiscoveryClient discoveryClient) {
         this.repository = repository;
-        this.restTemplate = restTemplate;
+        this.restTemplate = restTemplateBuilder.build();
         this.discoveryClient = discoveryClient;
     }
 
