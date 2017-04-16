@@ -35,6 +35,7 @@ dependencies {
 	compile('mysql:mysql-connector-java')
 	compile('org.hibernate:hibernate-validator')
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
+	compile(':common')
 	testCompile('org.springframework.cloud:spring-cloud-starter-eureka-server')
 
 }

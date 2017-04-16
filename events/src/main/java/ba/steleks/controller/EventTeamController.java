@@ -37,10 +37,10 @@ public class EventTeamController {
         this.repository = repository;
     }
 
-    @RequestMapping(path = "/eventTeam", method = RequestMethod.POST)
+    @RequestMapping(path = "/eventTeams", method = RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody EventTeam eventTeam) throws ExternalServiceException {
 
-        String oviTimoviNeki = "http://localhost:9010/team/{id}";
+        String oviTimoviNeki = "http://localhost:9010/teams/{id}";
         try {
 
             String response = restTemplate.getForObject(oviTimoviNeki, String.class, eventTeam.getTeamId());
