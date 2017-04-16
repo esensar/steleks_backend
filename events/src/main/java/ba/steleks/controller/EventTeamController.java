@@ -5,6 +5,8 @@ import ba.steleks.model.Event;
 import ba.steleks.model.EventTeam;
 import ba.steleks.repository.EventTeamJpaRepository;
 import ba.steleks.repository.EventsJpaRepository;
+import ba.steleks.service.Service;
+import ba.steleks.service.discovery.ServiceDiscoveryClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
@@ -31,19 +33,22 @@ public class EventTeamController {
 
     private RestTemplate restTemplate;
 
+    private ServiceDiscoveryClient discoveryClient;
+
     @Autowired
-    public EventTeamController(RestTemplateBuilder restTemplateBuilder, EventTeamJpaRepository repository) {
-        this.restTemplate = restTemplateBuilder.build();
+    public EventTeamController(EventTeamJpaRepository repository, RestTemplateBuilder restTemplateBuilder, ServiceDiscoveryClient discoveryClient) {
         this.repository = repository;
+        this.restTemplate = restTemplateBuilder.build();
+        this.discoveryClient = discoveryClient;
     }
 
     @RequestMapping(path = "/eventTeams", method = RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody EventTeam eventTeam) throws ExternalServiceException {
 
-        String oviTimoviNeki = "http://localhost:9010/teams/{id}";
+        String teamsServiceBase = discoveryClient.getServiceUrl(Service.TEAMS);
         try {
 
-            String response = restTemplate.getForObject(oviTimoviNeki, String.class, eventTeam.getTeamId());
+            String response = restTemplate.getForObject(teamsServiceBase + "/teams/{id}", String.class, eventTeam.getTeamId());
             EventTeam result = repository.save(eventTeam);
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest().path("/{id}")
