@@ -14,7 +14,7 @@
 				{
 					"name": "Get All Courses",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/courses",
+						"url": "http://{{usersUrl}}/courses",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -28,7 +28,7 @@
 				{
 					"name": "Add Course",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/courses",
+						"url": "http://{{usersUrl}}/courses",
 						"method": "POST",
 						"header": [
 							{
@@ -54,7 +54,7 @@
 				{
 					"name": "Get All",
 					"request": {
-						"url": "http://{{url}}:{{eventsPort}}",
+						"url": "http://{{eventsUrl}}",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -77,7 +77,7 @@
 						}
 					],
 					"request": {
-						"url": "http://{{url}}:{{eventsPort}}/events",
+						"url": "http://{{eventsUrl}}/events",
 						"method": "POST",
 						"header": [
 							{
@@ -97,7 +97,7 @@
 				{
 					"name": "Get Events",
 					"request": {
-						"url": "http://{{url}}:{{eventsPort}}/events",
+						"url": "http://{{eventsUrl}}/events",
 						"method": "GET",
 						"header": [
 							{
@@ -117,7 +117,7 @@
 				{
 					"name": "Get Event",
 					"request": {
-						"url": "http://{{url}}:{{eventsPort}}/events/{{eventId}}",
+						"url": "http://{{eventsUrl}}/events/{{eventId}}",
 						"method": "GET",
 						"header": [
 							{
@@ -137,7 +137,7 @@
 				{
 					"name": "Get Event Medias",
 					"request": {
-						"url": "http://{{url}}:{{eventsPort}}/events/{{eventId}}/mediaSet",
+						"url": "http://{{eventsUrl}}/events/{{eventId}}/mediaSet",
 						"method": "GET",
 						"header": [
 							{
@@ -157,7 +157,7 @@
 				{
 					"name": "Add Media To Event",
 					"request": {
-						"url": "http://{{url}}:{{eventsPort}}/events/{{eventId}}/mediaSet",
+						"url": "http://{{eventsUrl}}/events/{{eventId}}/mediaSet",
 						"method": "POST",
 						"header": [
 							{
@@ -168,7 +168,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "http://{{url}}:{{eventsPort}}/medias/1"
+							"raw": "http://{{eventsUrl}}/medias/1"
 						},
 						"description": ""
 					},
@@ -183,7 +183,7 @@
 				{
 					"name": "Add Media",
 					"request": {
-						"url": "http://{{url}}:{{eventsPort}}/medias",
+						"url": "http://{{eventsUrl}}/medias",
 						"method": "POST",
 						"header": [
 							{
@@ -203,7 +203,7 @@
 				{
 					"name": "Get All Medias",
 					"request": {
-						"url": "http://{{url}}:{{eventsPort}}/medias",
+						"url": "http://{{eventsUrl}}/medias",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -223,7 +223,7 @@
 				{
 					"name": "Get All Membership Types",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/membershipTypes",
+						"url": "http://{{usersUrl}}/membershipTypes",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -237,7 +237,7 @@
 				{
 					"name": "Add Membership Type",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/membershipTypes",
+						"url": "http://{{usersUrl}}/membershipTypes",
 						"method": "POST",
 						"header": [
 							{
@@ -263,7 +263,7 @@
 				{
 					"name": "Add Participant",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/participants",
+						"url": "http://{{teamsUrl}}/participants",
 						"method": "POST",
 						"header": [
 							{
@@ -283,7 +283,7 @@
 				{
 					"name": "Get All Participants",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/participants",
+						"url": "http://{{teamsUrl}}/participants",
 						"method": "GET",
 						"header": [
 							{
@@ -309,7 +309,7 @@
 				{
 					"name": "Get All User Roles",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/userRoles",
+						"url": "http://{{usersUrl}}/userRoles",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -323,7 +323,7 @@
 				{
 					"name": "Add User Role",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/userRoles",
+						"url": "http://{{usersUrl}}/userRoles",
 						"method": "POST",
 						"header": [
 							{
@@ -349,7 +349,7 @@
 				{
 					"name": "Add Team Category",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teamCategories",
+						"url": "http://{{teamsUrl}}/teamCategories",
 						"method": "POST",
 						"header": [
 							{
@@ -369,7 +369,7 @@
 				{
 					"name": "Get All Team Categories",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teamCategories",
+						"url": "http://{{teamsUrl}}/teamCategories",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -389,7 +389,7 @@
 				{
 					"name": "Get All Team Medias",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teamMedias",
+						"url": "http://{{teamsUrl}}/teamMedias",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -403,7 +403,7 @@
 				{
 					"name": "Add Team Media",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teamMedias",
+						"url": "http://{{teamsUrl}}/teamMedias",
 						"method": "POST",
 						"header": [
 							{
@@ -429,7 +429,7 @@
 				{
 					"name": "Get Teams",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teams",
+						"url": "http://{{teamsUrl}}/teams",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -452,7 +452,7 @@
 						}
 					],
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teams",
+						"url": "http://{{teamsUrl}}/teams",
 						"method": "POST",
 						"header": [
 							{
@@ -472,7 +472,7 @@
 				{
 					"name": "Get Team",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teams/{{teamId}}",
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -486,7 +486,7 @@
 				{
 					"name": "Get All",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}",
+						"url": "http://{{teamsUrl}}",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -500,7 +500,7 @@
 				{
 					"name": "Add Category To Team",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teams/{{teamId}}/teamCategory",
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/teamCategory",
 						"method": "PUT",
 						"header": [
 							{
@@ -511,7 +511,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "http://{{url}}:{{teamsPort}}/teamCategories/1"
+							"raw": "http://{{teamsUrl}}/teamCategories/1"
 						},
 						"description": ""
 					},
@@ -520,7 +520,7 @@
 				{
 					"name": "Get Team Categories",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teams/{{teamId}}/teamCategory",
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/teamCategory",
 						"method": "GET",
 						"header": [
 							{
@@ -540,7 +540,7 @@
 				{
 					"name": "Add Participants To Team",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teams/{{teamId}}/participantSet",
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/participantSet",
 						"method": "POST",
 						"header": [
 							{
@@ -551,7 +551,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "http://{{url}}:{{teamsPort}}/participants/1"
+							"raw": "http://{{teamsUrl}}/participants/1"
 						},
 						"description": ""
 					},
@@ -560,7 +560,7 @@
 				{
 					"name": "Get Team Participants",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teams/{{teamId}}/participantSet",
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/participantSet",
 						"method": "GET",
 						"header": [
 							{
@@ -580,7 +580,7 @@
 				{
 					"name": "Add Media To Team",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teams/{{teamId}}/teamMediaSet",
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/teamMediaSet",
 						"method": "POST",
 						"header": [
 							{
@@ -591,7 +591,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "http://{{url}}:{{teamsPort}}/teamMedias/1"
+							"raw": "http://{{teamsUrl}}/teamMedias/1"
 						},
 						"description": ""
 					},
@@ -600,7 +600,7 @@
 				{
 					"name": "Get Team Medias",
 					"request": {
-						"url": "http://{{url}}:{{teamsPort}}/teams/{{teamId}}/teamMediaSet",
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/teamMediaSet",
 						"method": "GET",
 						"header": [
 							{
@@ -626,7 +626,7 @@
 				{
 					"name": "Get Users",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/users",
+						"url": "http://{{usersUrl}}/users",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -649,7 +649,7 @@
 						}
 					],
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/users",
+						"url": "http://{{usersUrl}}/users",
 						"method": "POST",
 						"header": [
 							{
@@ -669,7 +669,7 @@
 				{
 					"name": "Add Roles To User",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/userRoles",
+						"url": "http://{{usersUrl}}/users/{{userId}}/userRoles",
 						"method": "POST",
 						"header": [
 							{
@@ -689,7 +689,7 @@
 				{
 					"name": "Get User",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}",
+						"url": "http://{{usersUrl}}/users/{{userId}}",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -703,7 +703,7 @@
 				{
 					"name": "Get User Roles",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/userRoles",
+						"url": "http://{{usersUrl}}/users/{{userId}}/userRoles",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -717,7 +717,7 @@
 				{
 					"name": "Add Courses To User",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/courses",
+						"url": "http://{{usersUrl}}/users/{{userId}}/courses",
 						"method": "POST",
 						"header": [
 							{
@@ -728,7 +728,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "http://{{url}}:{{usersPort}}/courses/1"
+							"raw": "http://{{usersUrl}}/courses/1"
 						},
 						"description": ""
 					},
@@ -737,7 +737,7 @@
 				{
 					"name": "Get User Courses",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/courses",
+						"url": "http://{{usersUrl}}/users/{{userId}}/courses",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -751,7 +751,7 @@
 				{
 					"name": "Add Membership Types To User",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/membershipTypes",
+						"url": "http://{{usersUrl}}/users/{{userId}}/membershipTypes",
 						"method": "POST",
 						"header": [
 							{
@@ -762,7 +762,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "http://{{url}}:{{usersPort}}/membershipTypes/1"
+							"raw": "http://{{usersUrl}}/membershipTypes/1"
 						},
 						"description": ""
 					},
@@ -771,7 +771,7 @@
 				{
 					"name": "Get User Membership Types",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}/users/{{userId}}/membershipTypes",
+						"url": "http://{{usersUrl}}/users/{{userId}}/membershipTypes",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -785,7 +785,7 @@
 				{
 					"name": "Get All",
 					"request": {
-						"url": "http://{{url}}:{{usersPort}}",
+						"url": "http://{{usersUrl}}",
 						"method": "GET",
 						"header": [],
 						"body": {
