@@ -1,5 +1,6 @@
 package ba.steleks;
 
+import ba.steleks.service.ServiceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -21,34 +22,6 @@ public class EventsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EventsApplication.class, args);
-	}
-}
-
-@RefreshScope
-@RestController
-class MessageRestController {
-
-	@Value("${message:Hello default}")
-	private String message;
-
-	@Value("${user.password}")
-	private String password;
-
-	@RequestMapping("/message")
-	String getMessage() {
-		return this.message;
-	}
-
-	//@RequestMapping(path ="/temp", value = "/{id}", method = RequestMethod.GET)
-	//String getTemp(@PathVariable("id") Long id){
-	//	return "temp " + Long.toString(id);
-	//}
-
-	@RequestMapping(value = "/whoami/{username}", method = RequestMethod.GET)
-	public String whoami(@PathVariable("username") String username) {
-		return String.format("Hello! You're %s and you'll become a(n) root, " +
-		"but only if your password is '%s'!\n",
-				username, password);
 	}
 }
 
