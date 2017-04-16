@@ -16,8 +16,6 @@ task startEurekaService(dependsOn: [':eureka-service:bootRun'])
 task startMicroservices(dependsOn: [':events:bootRun', ':teams:bootRun', ':users:bootRun'])
 task runAll(dependsOn: ['cleanAll', 'startConfigServer', 'startEurekaService', 'startMicroservices'])
 startConfigServer.mustRunAfter cleanAll
-startEurekaService.mustRunAfter startConfigServer
-startMicroservices.mustRunAfter startEurekaService
 
 task buildConfigServer(dependsOn: [':config_server:build'])
 task buildEurekaService(dependsOn: [':eureka-service:build'])

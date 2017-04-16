@@ -1,15 +1,16 @@
-package ba.steleks;
+package ba.steles;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
-@EnableEurekaServer
+@EnableZuulProxy
+@EnableEurekaClient
 @SpringBootApplication
-public class EurekaServiceApplication {
+public class SteleksProxyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EurekaServiceApplication.class, args);
+		SpringApplication.run(SteleksProxyApplication.class, args);
 	}
 }
