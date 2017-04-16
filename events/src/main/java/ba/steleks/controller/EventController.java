@@ -5,6 +5,8 @@ import ba.steleks.repository.EventsJpaRepository;
 import ba.steleks.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Created by admin on 01/04/2017.
@@ -28,19 +31,28 @@ public class EventController {
 
     private RestTemplate restTemplate;
 
+    private DiscoveryClient discoveryClient;
+
     @Autowired
-    public EventController(RestTemplateBuilder restTemplateBuilder, EventsJpaRepository repository) {
-        this.restTemplate = restTemplateBuilder.build();
+    public EventController(EventsJpaRepository repository, RestTemplateBuilder restTemplateBuilder, DiscoveryClient discoveryClient) {
         this.repository = repository;
+        this.restTemplate = restTemplateBuilder.build();
+        this.discoveryClient = discoveryClient;
     }
 
     @RequestMapping(path = "/events", method = RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody Event event) throws ExternalServiceException {
 
-        String oviUseriNeki = "http://localhost:8090/users/{id}";
-        try {
+        List<ServiceInstance> usersInstances = discoveryClient.getInstances("users");
+        if(usersInstances == null || usersInstances.size() == 0) {
+            System.err.print("Users service not found!");
+            throw new ExternalServiceException();
+        }
 
-            String response = restTemplate.getForObject(oviUseriNeki, String.class, event.getCreatedById());
+        ServiceInstance usersService = usersInstances.get(0);
+        String usersServiceBase = usersService.getUri().toString();
+        try {
+            String response = restTemplate.getForObject(usersServiceBase + "/users/{id}", String.class, event.getCreatedById());
             Event result = repository.save(event);
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest().path("/{id}")
