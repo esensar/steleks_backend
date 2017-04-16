@@ -9,3 +9,19 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
+
+task cleanAll(dependsOn: [':config_server:clean', ':eureka-service:clean', ':events:clean', ':teams:clean', ':users:clean'])
+task startConfigServer(dependsOn: [':config_server:bootRun'])
+task startEurekaService(dependsOn: [':eureka-service:bootRun'])
+task startMicroservices(dependsOn: [':events:bootRun', ':teams:bootRun', ':users:bootRun'])
+task runAll(dependsOn: ['cleanAll', 'startConfigServer', 'startEurekaService', 'startMicroservices'])
+startConfigServer.mustRunAfter cleanAll
+
+task buildConfigServer(dependsOn: [':config_server:build'])
+task buildEurekaService(dependsOn: [':eureka-service:build'])
+task buildMicroservices(dependsOn: [':events:build', ':teams:build', ':users:build'])
+task stage(dependsOn: ['cleanAll', 'buildConfigServer', 'buildEurekaService', 'buildMicroservices'])
+buildConfigServer.mustRunAfter cleanAll
+buildEurekaService.mustRunAfter buildConfigServer
+buildMicroservices.mustRunAfter buildEurekaService
+
