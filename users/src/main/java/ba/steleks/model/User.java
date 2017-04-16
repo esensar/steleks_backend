@@ -2,6 +2,8 @@ package ba.steleks.model;/**
  * Created by ensar on 22/03/17.
  */
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -31,6 +33,7 @@ public class User {
     @NotNull
     private String contactNumber;
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passwordHash;
     @NotNull
     private String username;
