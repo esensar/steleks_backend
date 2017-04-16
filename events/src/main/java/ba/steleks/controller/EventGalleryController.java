@@ -67,7 +67,7 @@ public class EventGalleryController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
         Media media = repository.findOne(mediaId);
-        media.setContentUrl(mediaServiceBase+"/profilePictures/" + dest);
+        media.setContentUrl(mediaServiceBase +"/" + dest);
 
         repository.save(media);
 

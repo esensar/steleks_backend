@@ -45,13 +45,13 @@ public class ProfilePictureController {
                                    RedirectAttributes redirectAttributes) {
 
         String[] names = file.getOriginalFilename().split("\\.");
-        String dest = String.valueOf(userId + "_" + new Date().getTime()) + "." + names[names.length - 1];
+        String dest = String.valueOf("profilePictures/" + userId + "_" + new Date().getTime()) + "." + names[names.length - 1];
         storageService.store(file, dest);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
         User user = repository.findOne(userId);
-        user.setProfilePictureUrl("http://localhost:8090/profilePictures/" + dest);
+        user.setProfilePictureUrl("http://localhost:8090" + dest);
         repository.save(user);
 
         return "redirect:/";
