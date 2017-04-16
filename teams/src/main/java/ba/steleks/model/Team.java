@@ -21,7 +21,6 @@ public class Team {
     @JoinColumn
     private TeamCategory teamCategory;
 
-    private long eventId;
 
     @ManyToMany
     @JoinColumn
@@ -72,14 +71,6 @@ public class Team {
 
     public void setContentId(TeamCategory contentId) {
         this.teamCategory = contentId;
-    }
-
-    public long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(long eventId) {
-        this.eventId = eventId;
     }
 
     public Set<Participant> getParticipantSet() {
