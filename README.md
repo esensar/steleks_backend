@@ -1,6 +1,6 @@
 # STELEKS web application 
 
-[Backend: Java Spring](https://github.com/esensar/steleks_backend)
+[Backend: Java Spring](https://github.com/esensar/steleks_backend)  
 [Frontend: Angular 2](https://github.com/dizda13/steleks_frontend)
 
 ## STELEKS Backend
