@@ -1,8 +1,9 @@
-# steleks_web_app
-STELEKS web application
+# STELEKS web application 
 
-Backend: Java Spring  
-Frontend: ReactJS and Angular
+[Backend: Java Spring](https://github.com/esensar/steleks_backend)  
+[Frontend: Angular 2](https://github.com/dizda13/steleks_frontend)
+
+## STELEKS Backend
 
 To run first run **config server**
 
