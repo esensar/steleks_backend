@@ -8,6 +8,6 @@ import ba.steleks.model.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface UsersJpaRepository extends PagingAndSortingRepository<User, Long> {
-
+    User findByUsername(String username);
 }
 
