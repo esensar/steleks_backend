@@ -1,8 +1,5 @@
 package ba.steleks.model;
 
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 /**
  * Created by admin on 13/05/2017.
  */
