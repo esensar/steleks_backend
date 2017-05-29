@@ -19,6 +19,13 @@ public class UserRole {
 
     private String roleName;
 
+    public UserRole() {
+    }
+
+    public UserRole(String roleName) {
+        this.roleName = roleName;
+    }
+
     public long getId() {
         return id;
     }
@@ -33,5 +40,20 @@ public class UserRole {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserRole userRole = (UserRole) o;
+
+        return roleName != null ? roleName.equals(userRole.roleName) : userRole.roleName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return roleName != null ? roleName.hashCode() : 0;
     }
 }
