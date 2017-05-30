@@ -10,15 +10,14 @@ import org.springframework.security.core.Authentication;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Created by ensar on 28/05/17.
  */
 
-class TokenAuthenticationService {
+public class TokenAuthenticationService {
+
 
     static final long EXPIRATION_TIME   = 864_000_000; // 10 days
     static final String SECRET          = "ASteleksSecret";
@@ -26,16 +25,17 @@ class TokenAuthenticationService {
     static final String HEADER_STRING   = "Authorization";
     static final String ROLES           = "roles";
 
-    static void addAuthenticationHeader(HttpServletResponse res, String username, Set<UserRole> userRoleSet) {
+    public static void addAuthenticationHeader(HttpServletResponse res, String username, Set<UserRole> userRoleSet) {
         String JWT = Jwts.builder()
                 .setSubject(username)
                 .claim(ROLES, UserRoleFactory.toString(userRoleSet))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET).compact();
+
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
     }
 
-    static Authentication getAuthentication(HttpServletRequest request) {
+    public static Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
 
         if (token != null) {

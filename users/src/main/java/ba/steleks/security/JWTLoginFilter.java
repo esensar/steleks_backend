@@ -14,6 +14,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
@@ -38,5 +39,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         Set<UserRole> userRoles = UserRoleFactory.fromGrantedAuthorities(authResult.getAuthorities());
 
         TokenAuthenticationService.addAuthenticationHeader(response, authResult.getName(), userRoles);
+
     }
 }

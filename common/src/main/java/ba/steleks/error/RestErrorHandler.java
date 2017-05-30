@@ -1,5 +1,6 @@
 package ba.steleks.error;
 
+import ba.steleks.error.exception.CustomHttpStatusException;
 import ba.steleks.error.exception.ExternalServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,17 @@ public class RestErrorHandler {
         map.put("error", HttpStatus.SERVICE_UNAVAILABLE.getReasonPhrase());
 
         return map;
+
+    }
+
+    @ExceptionHandler(CustomHttpStatusException.class)
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> handleAllCustomExceptions(CustomHttpStatusException ex) {
+        Map<String, String> map= new HashMap<String, String>();
+        map.put("status", ex.getStatusCode().toString());
+        map.put("error", ex.getMessage());
+
+        return ResponseEntity.status(ex.getStatusCode()).body(map);
 
     }
 

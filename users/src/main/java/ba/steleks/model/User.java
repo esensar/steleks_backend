@@ -2,6 +2,7 @@ package ba.steleks.model;/**
  * Created by ensar on 22/03/17.
  */
 
+import ba.steleks.security.UserPasswordEntityListener;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -12,9 +13,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 @Entity
+@EntityListeners(UserPasswordEntityListener.class)
 public class User {
-    private static final Logger logger =
-            Logger.getLogger(User.class.getName());
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,6 +35,10 @@ public class User {
     @NotNull
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passwordHash;
+
+    @Transient
+    private String password;
+
     @NotNull
     private String username;
 
@@ -48,7 +52,7 @@ public class User {
     @JoinColumn
     private Set<MembershipType> membershipTypes;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn
     private Set<UserRole> userRoles;
 
@@ -154,6 +158,14 @@ public class User {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @PrePersist
