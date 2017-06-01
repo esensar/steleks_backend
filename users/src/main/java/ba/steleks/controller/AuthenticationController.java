@@ -71,11 +71,14 @@ public class AuthenticationController {
 
     @RequestMapping(path = "/accesstoken/{token}", method = RequestMethod.GET)
     public ResponseEntity<?> validateToken(@PathVariable String token) {
+        System.out.println("Validating token: " + token);
         if (tokenStore.isValidToken(token)) {
+            System.out.println("Valid token: " + token);
             Long userId = tokenStore.getTokenInfo(token);
 
             User user = usersJpaRepository.findOne(userId);
             if(user != null) {
+                System.out.println("Found user with id: " + userId);
                 Map<String, Object> response = new HashMap<>();
                 response.put("userId", String.valueOf(userId));
                 response.put("roles",
@@ -85,11 +88,13 @@ public class AuthenticationController {
                         .ok()
                         .body(response);
             } else {
+                System.out.println("Found no user with id: " + userId);
                 return ResponseEntity
                         .status(HttpStatus.UNAUTHORIZED)
                         .build();
             }
         } else {
+            System.out.println("Invalid token: " + token);
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .build();

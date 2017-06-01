@@ -1,1 +1,1 @@
-include 'common', 'events', 'config_server', 'teams', 'users', 'eureka-service'
+include 'common', 'events', 'config_server', 'teams', 'users', 'eureka-service', 'steleks-proxy'

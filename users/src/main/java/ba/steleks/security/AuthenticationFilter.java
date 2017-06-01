@@ -29,6 +29,8 @@ public class AuthenticationFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
+        System.out.println("Received a request which requires auth!");
+
         Authentication authentication = TokenAuthenticationService.getAuthentication(
                 (HttpServletRequest) request,
                 tokenStore,

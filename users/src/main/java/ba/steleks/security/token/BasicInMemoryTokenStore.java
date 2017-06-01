@@ -14,18 +14,20 @@ import java.util.concurrent.TimeUnit;
  */
 
 @Component
-public class BasicTokenStore implements TokenStore {
+public class BasicInMemoryTokenStore implements TokenStore {
 
     // Default one hour ttl
     public static final long DEFAULT_TTL =
             TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS);
 
-    private KeyValueStore<String, TokenInfo> tokenStore;
+    private static KeyValueStore<String, TokenInfo> tokenStore;
     private long ttl = DEFAULT_TTL;
 
     @Autowired
-    public BasicTokenStore(KeyValueStore<String, TokenInfo> tokenStore) {
-        this.tokenStore = tokenStore;
+    public BasicInMemoryTokenStore(KeyValueStore<String, TokenInfo> tokenStore) {
+        if(BasicInMemoryTokenStore.tokenStore == null) {
+            BasicInMemoryTokenStore.tokenStore = tokenStore;
+        }
     }
 
     @Override
