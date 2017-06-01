@@ -2,6 +2,8 @@ package ba.steleks.security;/**
  * Created by ensar on 16/05/17.
  */
 
+import ba.steleks.repository.UsersJpaRepository;
+import ba.steleks.security.token.TokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,6 +27,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private TokenStore tokenStore;
+
+    @Autowired
+    private UsersJpaRepository usersJpaRepository;
+
     @Override
     protected void configure(
             AuthenticationManagerBuilder auth) throws Exception {
@@ -37,9 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/accesstoken").permitAll()
                 .anyRequest().authenticated()
                 .and()
-//                .addFilterBefore(new JWTLoginFilter("/accesstoken", authenticationManager()),
-//                        CustomUrlUsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JWTAuthenticationFilter(), CustomUrlUsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new AuthenticationFilter(tokenStore, usersJpaRepository), CustomUrlUsernamePasswordAuthenticationFilter.class);
     }
 
 }

@@ -5,15 +5,13 @@ import ba.steleks.model.AuthRequest;
 import ba.steleks.model.User;
 import ba.steleks.repository.UsersJpaRepository;
 import ba.steleks.security.SessionIdentifierGenerator;
+import ba.steleks.security.UserRoleFactory;
 import ba.steleks.security.token.TokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +58,33 @@ public class AuthenticationController {
         } else {
             throw new CustomHttpStatusException(HttpStatus.UNAUTHORIZED,
                     "Invalid password!");
+        }
+    }
+
+    @RequestMapping(path = "/accesstoken/{token}", method = RequestMethod.GET)
+    public ResponseEntity<?> validateToken(@PathVariable String token) {
+        if (tokenStore.isValidToken(token)) {
+            Long userId = tokenStore.getTokenInfo(token);
+
+            User user = usersJpaRepository.findOne(userId);
+            if(user != null) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("userId", String.valueOf(userId));
+                response.put("roles",
+                        UserRoleFactory.toStringSet(user.getUserRoles())
+                );
+                return ResponseEntity
+                        .ok()
+                        .body(response);
+            } else {
+                return ResponseEntity
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .build();
+            }
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
         }
     }
 }

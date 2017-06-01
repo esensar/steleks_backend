@@ -5,10 +5,16 @@ package ba.steleks.security.token;
  */
 public interface TokenStore {
 
-    boolean isValidToken(Long id, String token);
+    /**
+     * @param token token
+     * @return user id associated to the {@param token} or null if it does not exist
+     */
+    Long getTokenInfo(String token);
+
+    boolean isValidToken(String token);
 
     void saveToken(Long id, String token);
 
-    void removeToken(Long id, String token);
+    void removeToken(String token);
 
 }

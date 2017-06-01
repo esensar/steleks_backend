@@ -27,6 +27,13 @@ public class UserRoleFactory {
         return userRoles;
     }
 
+    public static Set<String> toStringSet(Set<UserRole> userRoleSet) {
+        return userRoleSet
+                .stream()
+                .map(UserRole::getRoleName)
+                .collect(Collectors.toSet());
+    }
+
     public static List<GrantedAuthority> toGrantedAuthorities(Collection<UserRole> userRoleSet) {
         return userRoleSet
                 .stream()
