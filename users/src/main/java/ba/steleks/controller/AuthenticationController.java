@@ -61,6 +61,14 @@ public class AuthenticationController {
         }
     }
 
+    @RequestMapping(path = "/accesstoken/{token}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> removeToken(@PathVariable String token) {
+        tokenStore.removeToken(token);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
     @RequestMapping(path = "/accesstoken/{token}", method = RequestMethod.GET)
     public ResponseEntity<?> validateToken(@PathVariable String token) {
         if (tokenStore.isValidToken(token)) {

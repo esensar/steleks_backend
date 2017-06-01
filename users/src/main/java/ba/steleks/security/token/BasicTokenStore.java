@@ -36,6 +36,7 @@ public class BasicTokenStore implements TokenStore {
 
             // Token is invalid, it has expired
             if(basicToken.saveTime + ttl < CalendarUtils.getUTCCalendar().getTimeInMillis()) {
+                tokenStore.remove(token);
                 return false;
             }
 
