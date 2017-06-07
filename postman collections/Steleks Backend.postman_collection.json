@@ -1,0 +1,1011 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Steleks Backend",
+		"_postman_id": "ef580742-4589-8237-e6de-a870eb8253e9",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Courses",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All Courses",
+					"request": {
+						"url": "http://{{usersUrl}}/courses",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Course",
+					"request": {
+						"url": "http://{{usersUrl}}/courses",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"courseName\":\"TRECA\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"url": "http://{{eventsUrl}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"var arr = jsonData._links.self.href.split(\"/\");",
+									"postman.setEnvironmentVariable(\"eventId\", arr[4]);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://{{eventsUrl}}/events",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Testni\",\n    \"shortText\":\"Txt\",\n    \"longText\":\"Textcina\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Events",
+					"request": {
+						"url": "http://{{eventsUrl}}/events",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Testni\",\n    \"shortText\":\"Txt\",\n    \"longText\":\"Textcina\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event",
+					"request": {
+						"url": "http://{{eventsUrl}}/events/{{eventId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Testni\",\n    \"shortText\":\"Txt\",\n    \"longText\":\"Textcina\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event Medias",
+					"request": {
+						"url": "http://{{eventsUrl}}/events/{{eventId}}/mediaSet",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Testni\",\n    \"shortText\":\"Txt\",\n    \"longText\":\"Textcina\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Media To Event",
+					"request": {
+						"url": "http://{{eventsUrl}}/events/{{eventId}}/mediaSet",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{eventsUrl}}/medias/1"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Media",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Media",
+					"request": {
+						"url": "http://{{eventsUrl}}/medias",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contentUrl\":\"http://www.google.com\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Medias",
+					"request": {
+						"url": "http://{{eventsUrl}}/medias",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Membership Types",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All Membership Types",
+					"request": {
+						"url": "http://{{usersUrl}}/membershipTypes",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Membership Type",
+					"request": {
+						"url": "http://{{usersUrl}}/membershipTypes",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"membershipTypeName\":\"TRECA\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Participants",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Participant",
+					"request": {
+						"url": "http://{{teamsUrl}}/participants",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\":\"Testni\",\n    \"lastName\":\"User\",\n    \"email\":\"testni.user@steleks.ba\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Participants",
+					"request": {
+						"url": "http://{{teamsUrl}}/participants",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\":\"Testni\",\n    \"lastName\":\"User\",\n    \"email\":\"testni.user@steleks.ba\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All User Roles",
+					"request": {
+						"url": "http://{{usersUrl}}/userRoles",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Role",
+					"request": {
+						"url": "http://{{usersUrl}}/userRoles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roleName\":\"TRECA\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team Category",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Team Category",
+					"request": {
+						"url": "http://{{teamsUrl}}/teamCategories",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\":\"The category\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Team Categories",
+					"request": {
+						"url": "http://{{teamsUrl}}/teamCategories",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team Media",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All Team Medias",
+					"request": {
+						"url": "http://{{teamsUrl}}/teamMedias",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Team Media",
+					"request": {
+						"url": "http://{{teamsUrl}}/teamMedias",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contentUrl\":\"http://www.google.com\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Teams",
+					"request": {
+						"url": "http://{{teamsUrl}}/teams",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"var arr = jsonData._links.self.href.split(\"/\");",
+									"postman.setEnvironmentVariable(\"teamId\", arr[4]);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://{{teamsUrl}}/teams",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"position\":0,\n    \"gradesOrPoints\":6\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Team",
+					"request": {
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"url": "http://{{teamsUrl}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Category To Team",
+					"request": {
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/teamCategory",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{teamsUrl}}/teamCategories/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Team Categories",
+					"request": {
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/teamCategory",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{url}}:{{teamsPort}}/teamCategories/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Participants To Team",
+					"request": {
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/participantSet",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{teamsUrl}}/participants/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Team Participants",
+					"request": {
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/participantSet",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{url}}:{{teamsPort}}/participants/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Media To Team",
+					"request": {
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/teamMediaSet",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{teamsUrl}}/teamMedias/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Team Medias",
+					"request": {
+						"url": "http://{{teamsUrl}}/teams/{{teamId}}/teamMediaSet",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{url}}:{{teamsPort}}/teamMedias/1"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"url": "http://{{usersUrl}}/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"var arr = jsonData._links.self.href.split(\"/\");",
+									"postman.setEnvironmentVariable(\"userId\", arr[4]);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://{{usersUrl}}/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\":\"Testni\",\n    \"lastName\":\"User\",\n    \"username\":\"Juzernejm\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Roles To User",
+					"request": {
+						"url": "http://{{usersUrl}}/users/{{userId}}/userRoles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{usersUrl}}/userRoles/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"url": "http://{{usersUrl}}/users/{{userId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Roles",
+					"request": {
+						"url": "http://{{usersUrl}}/users/{{userId}}/userRoles",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Courses To User",
+					"request": {
+						"url": "http://{{usersUrl}}/users/{{userId}}/courses",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{usersUrl}}/courses/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Courses",
+					"request": {
+						"url": "http://{{usersUrl}}/users/{{userId}}/courses",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Membership Types To User",
+					"request": {
+						"url": "http://{{usersUrl}}/users/{{userId}}/membershipTypes",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "http://{{usersUrl}}/membershipTypes/1"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Membership Types",
+					"request": {
+						"url": "http://{{usersUrl}}/users/{{userId}}/membershipTypes",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"url": "http://{{usersUrl}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://{{usersUrl}}/accesstoken",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"Juzernejm\",\n\t\"password\":\"pashee\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
