@@ -10,6 +10,7 @@ import ba.steleks.security.token.TokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class AuthenticationController {
     private TokenStore tokenStore;
 
     @Autowired
+
     public AuthenticationController(UsersJpaRepository usersJpaRepository, PasswordEncoder passwordEncoder, TokenStore tokenStore) {
         this.usersJpaRepository = usersJpaRepository;
         this.passwordEncoder = passwordEncoder;
@@ -59,6 +61,7 @@ public class AuthenticationController {
             throw new CustomHttpStatusException(HttpStatus.UNAUTHORIZED,
                     "Invalid password!");
         }
+
     }
 
     @RequestMapping(path = "/accesstoken/{token}", method = RequestMethod.DELETE)
