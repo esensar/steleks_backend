@@ -19,12 +19,17 @@ public class Event {
     private Timestamp dateTime;
     private int duration;
     private long createdById;
+
     @ManyToOne
     @JoinColumn
     private EventType eventType;
 
-    @ManyToMany
-    @JoinColumn
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "event_media_set",
+            joinColumns=@JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name="media_set_id")
+    )
     private Set<Media> mediaSet;
 
     protected Event() {}
