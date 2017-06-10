@@ -41,7 +41,7 @@ public class EventGalleryController {
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
-        Resource file = storageService.loadAsResource("mediaEvent/"+filename);
+        Resource file = storageService.loadAsResource("eventPictures/"+filename);
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"")
@@ -54,15 +54,21 @@ public class EventGalleryController {
 
 
         String mediaServiceBase = discoveryClient.getServiceUrl(Service.EVENTS);
-
+        System.out.println(mediaServiceBase);
         String[] names = file.getOriginalFilename().split("\\.");
-        String dest = String.valueOf("mediaEvent/" + mediaId + "_" + new Date().getTime()) + "." + names[names.length - 1];
+        String dest = String.valueOf("eventPictures/" + mediaId + "_" + new Date().getTime()) + "." + names[names.length - 1];
         storageService.store(file, dest);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
-
+        System.out.println(dest);
         Media media = repository.findOne(mediaId);
-        media.setContentUrl(mediaServiceBase +"/" + dest);
+        if(media==null){
+            media= new Media();
+            media.setContentUrl(mediaServiceBase +"/" + dest);
+            media.setCreatedById(0);
+            repository.save(media);
+        }else
+            media.setContentUrl(mediaServiceBase +"/" + dest);
 
         repository.save(media);
 
