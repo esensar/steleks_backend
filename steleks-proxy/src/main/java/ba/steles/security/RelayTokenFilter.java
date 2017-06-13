@@ -20,6 +20,8 @@ public class RelayTokenFilter extends ZuulFilter {
         Set<String> headers = (Set<String>) ctx.get("ignoredHeaders");
         // We need our tokens relayed to resource servers
         headers.remove("authorization");
+        headers.add("Access-Control-Allow-Origin");
+        headers.add("Access-Control-Allow-Credentials");
 
         return null;
     }
