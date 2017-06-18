@@ -61,14 +61,18 @@ public class EventController {
     @RequestMapping(path = "/events", method = RequestMethod.GET)
     public ResponseEntity<?> getEventsById(@RequestParam(required = false) Long typeId) {
         Iterable<Event> result;
-        if(typeId == null) {
+        if (typeId == null) {
             result = repository.findAll();
         } else {
             result = repository.findByEventTypeId(typeId);
         }
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new Object() { public Object _embedded = result;});
+                .body(new Object() {
+                    public Object _embedded = new Object() {
+                        public Object events = result;
+                    };
+                });
     }
 
 }
