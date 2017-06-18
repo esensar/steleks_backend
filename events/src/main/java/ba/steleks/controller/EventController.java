@@ -10,14 +10,14 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.ws.rs.GET;
 import java.net.URI;
+import java.util.List;
 
 /**
  * Created by admin on 01/04/2017.
@@ -56,6 +56,19 @@ public class EventController {
                 throw new ExternalServiceException();
             }
         }
+    }
+
+    @RequestMapping(path = "/events", method = RequestMethod.GET)
+    public ResponseEntity<?> getEventsById(@RequestParam(required = false) Long typeId) {
+        Iterable<Event> result;
+        if(typeId == null) {
+            result = repository.findAll();
+        } else {
+            result = repository.findByEventTypeId(typeId);
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new Object() { public Object _embedded = result;});
     }
 
 }
