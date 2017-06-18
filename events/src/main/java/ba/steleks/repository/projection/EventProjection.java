@@ -12,6 +12,7 @@ import java.util.Set;
 
 @Projection(name = "eventProjection", types = { Event.class })
 public interface EventProjection {
+    Integer getId();
     String getTitle();
     String getShortText();
     String getLongText();
