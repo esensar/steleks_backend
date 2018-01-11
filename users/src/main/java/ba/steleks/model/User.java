@@ -29,6 +29,7 @@ public class User {
     @NotNull
     private Timestamp registrationDate;
     @NotNull
+    @Column(unique = true)
     private String email;
     @NotNull
     private String contactNumber;
@@ -40,6 +41,7 @@ public class User {
     private String password;
 
     @NotNull
+    @Column(unique = true)
     private String username;
 
     private String profilePictureUrl;

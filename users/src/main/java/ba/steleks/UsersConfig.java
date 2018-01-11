@@ -1,7 +1,11 @@
 package ba.steleks;
 
+import ba.steleks.security.SteleksUsersDetailsService;
+import ba.steleks.security.token.HashTokenEncoder;
+import ba.steleks.security.token.TokenEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -11,7 +15,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class UsersConfig {
     @Bean
-    public static PasswordEncoder providePasswordEncoder(){
+    public static PasswordEncoder providePasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public static TokenEncoder provideTokenEncoder() {
+        return new HashTokenEncoder();
+    }
+
+    @Bean
+    public static AutowireHelper autowireHelper() {
+        return AutowireHelper.getInstance();
+    }
+
+    @Bean
+    public UserDetailsService provideUserDetailsService() {
+        return new SteleksUsersDetailsService();
     }
 }

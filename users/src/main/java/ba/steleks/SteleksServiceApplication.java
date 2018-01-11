@@ -38,18 +38,6 @@ class ServiceInstanceRestController {
 		this.discoveryClient=discoveryClient;
 	}
 
-	@Value("${user.password}")
-	private String password;
-
-	@RequestMapping(
-			value = "/whoami/{username}",
-			method = RequestMethod.GET,
-			produces = MediaType.TEXT_PLAIN_VALUE)
-	public String whoami(@PathVariable("username") String username) {
-		return String.format("Hello! You're %s and you'll become Developer, " +
-				"but only if your password is '%s'!\n", username, password);
-	}
-
 	@RequestMapping("/service-instances/{applicationName}")
 	public List<ServiceInstance> serviceInstancesByApplicationName(
 			@PathVariable String applicationName) {

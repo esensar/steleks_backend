@@ -13,7 +13,7 @@ public interface TokenStore {
 
     boolean isValidToken(String token);
 
-    void saveToken(Long id, String token);
+    void saveToken(Long id, String tokenKey);
 
     void removeToken(String token);
 

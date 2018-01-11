@@ -1,4 +1,6 @@
-package ba.steleks.security;/**
+package ba.steleks.security;
+
+/**
  * Created by ensar on 16/05/17.
  */
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,19 +22,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @ComponentScan("org.baeldung.security")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public UserDetailsService provideUserDetailsService() {
-        return new SteleksUsersDetailsService();
+    private final UserDetailsService userDetailsService;
+
+    private final TokenStore tokenStore;
+
+    private final UsersJpaRepository usersJpaRepository;
+
+    @Autowired
+    public SecurityConfig(UserDetailsService userDetailsService, TokenStore tokenStore, UsersJpaRepository usersJpaRepository) {
+        this.userDetailsService = userDetailsService;
+        this.tokenStore = tokenStore;
+        this.usersJpaRepository = usersJpaRepository;
     }
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private TokenStore tokenStore;
-
-    @Autowired
-    private UsersJpaRepository usersJpaRepository;
 
     @Override
     protected void configure(
@@ -43,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/accesstoken", "/accesstoken/**", "/").permitAll()
+                .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new AuthenticationFilter(tokenStore, usersJpaRepository), CustomUrlUsernamePasswordAuthenticationFilter.class);
