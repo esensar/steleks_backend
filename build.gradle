@@ -10,16 +10,16 @@ buildscript {
     }
 }
 
-task cleanAll(dependsOn: [':config_server:clean', ':eureka-service:clean', ':events:clean', ':teams:clean', ':users:clean'])
+task cleanAll(dependsOn: [':config_server:clean', ':eureka-service:clean', ':events:clean', ':teams:clean', ':users:clean', ':steleks-proxy:clean'])
 task startConfigServer(dependsOn: [':config_server:bootRun'])
 task startEurekaService(dependsOn: [':eureka-service:bootRun'])
-task startMicroservices(dependsOn: [':events:bootRun', ':teams:bootRun', ':users:bootRun'])
+task startMicroservices(dependsOn: [':events:bootRun', ':teams:bootRun', ':users:bootRun', ':steleks-proxy:build'])
 task runAll(dependsOn: ['cleanAll', 'startConfigServer', 'startEurekaService', 'startMicroservices'])
 startConfigServer.mustRunAfter cleanAll
 
 task buildConfigServer(dependsOn: [':config_server:build'])
 task buildEurekaService(dependsOn: [':eureka-service:build'])
-task buildMicroservices(dependsOn: [':events:build', ':teams:build', ':users:build'])
+task buildMicroservices(dependsOn: [':events:build', ':teams:build', ':users:build', ':steleks-proxy:build'])
 task stage(dependsOn: ['cleanAll', 'buildConfigServer', 'buildEurekaService', 'buildMicroservices'])
 buildConfigServer.mustRunAfter cleanAll
 buildEurekaService.mustRunAfter buildConfigServer
