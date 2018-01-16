@@ -8,8 +8,7 @@ import ba.steleks.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.ws.rs.GET;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,10 +40,16 @@ public class EventController {
     }
 
     @RequestMapping(path = "/events", method = RequestMethod.POST)
-    public ResponseEntity<?> add(@RequestBody Event event) throws ExternalServiceException {
+    public ResponseEntity<?> add(@RequestBody Event event, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) throws ExternalServiceException {
         String usersServiceBase = discoveryClient.getServiceUrl(Service.USERS);
         try {
-            String response = restTemplate.getForObject(usersServiceBase + "/users/{id}", String.class, event.getCreatedById());
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.set(HttpHeaders.AUTHORIZATION, token);
+
+            HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+
+            restTemplate.exchange(usersServiceBase + "/users/{id}", HttpMethod.GET, entity, String.class, event.getCreatedById());
             Event result = repository.save(event);
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest().path("/{id}")
@@ -58,8 +64,8 @@ public class EventController {
         }
     }
 
-    @RequestMapping(path = "/events", method = RequestMethod.GET)
-    public ResponseEntity<?> getEventsById(@RequestParam(required = false) Long typeId) {
+    @RequestMapping(path = "/events/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getEventsById(@RequestParam Long typeId) {
         Iterable<Event> result;
         if (typeId == null) {
             result = repository.findAll();
