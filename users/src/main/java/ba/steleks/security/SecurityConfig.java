@@ -46,6 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/accesstoken", "/accesstoken/**", "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/**/userRoles").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/users/**/userRoles").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/users/**/userRoles").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/users/**/userRoles/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new AuthenticationFilter(tokenStore, usersJpaRepository), CustomUrlUsernamePasswordAuthenticationFilter.class);
