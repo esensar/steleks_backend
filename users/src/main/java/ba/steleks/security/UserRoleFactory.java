@@ -39,6 +39,7 @@ public class UserRoleFactory {
                 .stream()
                 // get role name
                 .map(UserRole::getRoleName)
+                .map(role -> "ROLE_" + role)
                 // create authority
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
