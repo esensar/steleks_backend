@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers("/users/**", "/users", "/").permitAll()
+                .antMatchers("/users/users", "/users/users/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new AuthenticationFilter(restTemplateBuilder.build(), discoveryClient), UsernamePasswordAuthenticationFilter.class);

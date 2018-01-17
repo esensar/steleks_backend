@@ -3,6 +3,7 @@ package ba.steleks.controller;
 import ba.steleks.error.exception.CustomHttpStatusException;
 import ba.steleks.model.AuthRequest;
 import ba.steleks.model.User;
+import ba.steleks.model.UserRole;
 import ba.steleks.repository.UsersJpaRepository;
 import ba.steleks.security.SessionIdentifierGenerator;
 import ba.steleks.security.UserRoleFactory;
@@ -51,9 +52,10 @@ public class AuthenticationController {
         if (passwordEncoder.matches(body.getPassword(), user.getPasswordHash())) {
             String token = new SessionIdentifierGenerator().nextSessionId();
             tokenStore.saveToken(user.getId(), token);
-            Map<String, String> response = new HashMap<>();
+            Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("userId", String.valueOf(user.getId()));
+            response.put("roles", UserRoleFactory.toStringSet(user.getUserRoles()));
             return ResponseEntity
                     .ok()
                     .body(response);
