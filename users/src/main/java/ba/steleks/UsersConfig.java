@@ -3,6 +3,7 @@ package ba.steleks;
 import ba.steleks.security.SteleksUsersDetailsService;
 import ba.steleks.security.token.HashTokenEncoder;
 import ba.steleks.security.token.TokenEncoder;
+import ba.steleks.security.AutowireHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
