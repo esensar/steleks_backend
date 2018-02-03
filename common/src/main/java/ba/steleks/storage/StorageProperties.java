@@ -9,7 +9,7 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
-    @Value("{default.storage.directory}")
+    @Value("${default.storage.directory}")
     private String location;
 
     public String getLocation() {

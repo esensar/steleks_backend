@@ -3,6 +3,7 @@ package ba.steleks.storage;
 import ba.steleks.storage.error.exception.StorageException;
 import ba.steleks.storage.error.exception.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -33,18 +34,27 @@ public class FileSystemStorageService implements StorageService {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
 
+            store((InputStreamSource) file, dest);
+        } catch (StorageException e) {
+            throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
+        }
+    }
+
+    @Override
+    public void store(InputStreamSource inputStreamSource, String dest) {
+        try {
             String tempDest="";
             String[] locations=this.rootLocation.resolve(dest).toString().split("/");
             for(int i=0; i<locations.length-1;i++)
-                    tempDest=tempDest+"/"+locations[i];
+                tempDest=tempDest+"/"+locations[i];
 
             if(!Files.exists(Paths.get(tempDest)))
                 Files.createDirectory(Paths.get(tempDest));
 
-            Files.copy(file.getInputStream(),
+            Files.copy(inputStreamSource.getInputStream(),
                     this.rootLocation.resolve(dest));
         } catch (IOException e) {
-            throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
+            throw new StorageException("Failed to store file " + inputStreamSource.toString(), e);
         }
     }
 
