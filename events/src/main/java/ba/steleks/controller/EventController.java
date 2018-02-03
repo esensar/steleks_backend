@@ -1,23 +1,18 @@
 package ba.steleks.controller;
 
-import ba.steleks.service.Service;
-import ba.steleks.service.discovery.ServiceDiscoveryClient;
 import ba.steleks.error.exception.ExternalServiceException;
-import ba.steleks.repository.EventsJpaRepository;
 import ba.steleks.model.Event;
+import ba.steleks.repository.EventsJpaRepository;
+import ba.steleks.util.ProxyHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.ws.rs.GET;
 import java.net.URI;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by admin on 01/04/2017.
@@ -28,28 +23,15 @@ public class EventController {
 
     private EventsJpaRepository repository;
 
-    private RestTemplate restTemplate;
-
-    private ServiceDiscoveryClient discoveryClient;
-
     @Autowired
-    public EventController(EventsJpaRepository repository, RestTemplateBuilder restTemplateBuilder, ServiceDiscoveryClient discoveryClient) {
+    public EventController(EventsJpaRepository repository) {
         this.repository = repository;
-        this.restTemplate = restTemplateBuilder.build();
-        this.discoveryClient = discoveryClient;
     }
 
     @RequestMapping(path = "/events", method = RequestMethod.POST)
-    public ResponseEntity<?> add(@RequestBody Event event, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) throws ExternalServiceException {
-        String usersServiceBase = discoveryClient.getServiceUrl(Service.USERS);
+    public ResponseEntity<?> add(@RequestBody Event event, @RequestHeader(ProxyHeaders.USER_ID) String userId) throws ExternalServiceException {
         try {
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders headers = new HttpHeaders();
-            headers.set(HttpHeaders.AUTHORIZATION, token);
-
-            HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-
-            restTemplate.exchange(usersServiceBase + "/users/{id}", HttpMethod.GET, entity, String.class, event.getCreatedById());
+            event.setCreatedById(Long.parseLong(userId));
             Event result = repository.save(event);
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest().path("/{id}")

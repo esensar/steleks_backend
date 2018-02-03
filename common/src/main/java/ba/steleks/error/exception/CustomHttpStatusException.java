@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import java.nio.charset.Charset;
-import java.util.logging.Logger;
 
 public class CustomHttpStatusException extends HttpStatusCodeException {
 

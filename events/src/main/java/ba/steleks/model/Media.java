@@ -1,5 +1,7 @@
 package ba.steleks.model;
 
+import com.sun.istack.internal.Nullable;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -18,6 +20,7 @@ public class Media {
     private String contentUrl;
     @Column(updatable = false, insertable = false)
     private Timestamp creationDate;
+    @Nullable
     private long createdById;
 
     public Media() {

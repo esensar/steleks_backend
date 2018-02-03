@@ -1,5 +1,7 @@
 package ba.steleks.model;
 
+import com.sun.istack.internal.Nullable;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -18,6 +20,7 @@ public class Event {
     private String longText;
     private Timestamp dateTime;
     private int duration;
+    @Nullable
     private long createdById;
 
     @ManyToOne

@@ -35,5 +35,6 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
 	compile('org.springframework.cloud:spring-cloud-starter-zuul')
 	testCompile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+	compile project(':common')
 
 }

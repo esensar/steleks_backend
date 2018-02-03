@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Entity
 @EntityListeners(UserPasswordEntityListener.class)

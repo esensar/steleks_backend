@@ -7,7 +7,6 @@ import com.netflix.zuul.context.RequestContext;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Component
 public class RelayTokenFilter extends ZuulFilter {

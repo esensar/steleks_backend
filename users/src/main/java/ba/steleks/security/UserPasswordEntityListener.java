@@ -4,10 +4,8 @@ import ba.steleks.AutowireHelper;
 import ba.steleks.model.User;
 import ba.steleks.repository.UserRolesJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;

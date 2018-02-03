@@ -7,8 +7,6 @@ import ba.steleks.service.Service;
 import ba.steleks.service.discovery.ServiceDiscoveryClient;
 import ba.steleks.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by admin on 16/04/2017.
