@@ -30,12 +30,12 @@ public class Event {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "event_media_set",
-            joinColumns=@JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name="media_set_id")
+            joinColumns=@JoinColumn(name = "event_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="media_set_id", referencedColumnName = "id")
     )
     private Set<Media> mediaSet;
 
-    protected Event() {}
+    public Event() {}
 
     public long getId() {
         return id;

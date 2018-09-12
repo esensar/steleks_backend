@@ -42,7 +42,7 @@ public class MediaController {
         try {
             BufferedImage mediaImage = null;
             if (!TextUtils.isEmpty(media.getContentUrl())) {
-                mediaImage = ImageIO.read(new URL(media.getContentUrl()));
+                mediaImage = ImageIO.read(new URL(media.getContentUrl()).openStream());
             }
             media.setCreatedById(Long.parseLong(userId));
             Media result = repository.save(media);

@@ -63,4 +63,14 @@ public class Media {
     protected void onCreate() {
         this.creationDate = new Timestamp(new Date().getTime());
     }
+
+    @Override
+    public String toString() {
+        return "Media{" +
+                "id=" + id +
+                ", contentUrl='" + contentUrl + '\'' +
+                ", creationDate=" + creationDate +
+                ", createdById=" + createdById +
+                '}';
+    }
 }
