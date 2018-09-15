@@ -27,7 +27,6 @@ public class AuthenticationController {
     private TokenStore tokenStore;
 
     @Autowired
-
     public AuthenticationController(UsersJpaRepository usersJpaRepository, PasswordEncoder passwordEncoder, TokenStore tokenStore) {
         this.usersJpaRepository = usersJpaRepository;
         this.passwordEncoder = passwordEncoder;

@@ -13,7 +13,7 @@ public class StorageProperties {
     private String location;
 
     public String getLocation() {
-        return location;
+        return "/Users/ensar.sarajcic/Steleks";
     }
 
     public void setLocation(String location) {
