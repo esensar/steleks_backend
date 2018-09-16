@@ -35,7 +35,6 @@ public class AuthenticationFilter extends GenericFilterBean {
                 tokenStore,
                 usersJpaRepository
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
