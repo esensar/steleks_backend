@@ -3,7 +3,9 @@ package ba.steleks.controller;
 import ba.steleks.error.exception.ExternalServiceException;
 import ba.steleks.model.Event;
 import ba.steleks.model.EventRequest;
+import ba.steleks.model.EventType;
 import ba.steleks.model.Media;
+import ba.steleks.repository.EventTypeJpaRepository;
 import ba.steleks.repository.EventsJpaRepository;
 import ba.steleks.repository.MediaJpaRepository;
 import ba.steleks.util.ProxyHeaders;
@@ -25,18 +27,22 @@ import java.util.Set;
 
 @RepositoryRestController
 public class EventController {
-
+    
     private EventsJpaRepository repository;
     private MediaJpaRepository mediaJpaRepository;
+    private EventTypeJpaRepository eventTypeJpaRepository;
 
     @Autowired
-    public EventController(EventsJpaRepository repository, MediaJpaRepository mediaJpaRepository) {
+    public EventController(EventsJpaRepository repository,
+                           MediaJpaRepository mediaJpaRepository,
+                           EventTypeJpaRepository eventTypeJpaRepository) {
         this.repository = repository;
         this.mediaJpaRepository = mediaJpaRepository;
+        this.eventTypeJpaRepository = eventTypeJpaRepository;
     }
 
-    @RequestMapping(path = "/events", method = RequestMethod.POST)
-    public ResponseEntity<?> add(@RequestBody EventRequest eventRequest, @RequestHeader(ProxyHeaders.USER_ID) String userId) throws ExternalServiceException {
+    public ResponseEntity<?> addEventWithType(EventRequest eventRequest, String userId, long eventTypeId) throws ExternalServiceException {
+        EventType eventType = eventTypeJpaRepository.findOne(eventTypeId);
         System.out.println(eventRequest);
         try {
             Event event = new Event();
@@ -44,11 +50,14 @@ public class EventController {
             event.setShortText(eventRequest.getShortText());
             event.setLongText(eventRequest.getLongText());
             event.setCreatedById(Long.parseLong(userId));
+            event.setEventType(eventType);
             Set<Media> savedMedia = new HashSet<>();
-            for (Media media : eventRequest.getMedias()) {
-                Media loadedMedia = mediaJpaRepository.findOne(media.getId());
-                savedMedia.add(loadedMedia);
-                System.out.println("Loaded media: " + loadedMedia);
+            if (eventRequest.getMedias() != null) {
+                for (Media media : eventRequest.getMedias()) {
+                    Media loadedMedia = mediaJpaRepository.findOne(media.getId());
+                    savedMedia.add(loadedMedia);
+                    System.out.println("Loaded media: " + loadedMedia);
+                }
             }
             Event result = repository.save(event);
             result.setMediaSet(savedMedia);
@@ -67,20 +76,14 @@ public class EventController {
     }
 
     @RequestMapping(path = "/events/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getEventsById(@RequestParam Long typeId) {
-        Iterable<Event> result;
-        if (typeId == null) {
-            result = repository.findAll();
-        } else {
-            result = repository.findByEventTypeId(typeId);
+    public ResponseEntity<?> getEventsById(@PathVariable("id") String eventId) {
+        Event result;
+        result = repository.findOne(Long.parseLong(eventId));
+        if (result == null) {
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new Object() {
-                    public Object _embedded = new Object() {
-                        public Object events = result;
-                    };
-                });
+                .body(result);
     }
-
 }
