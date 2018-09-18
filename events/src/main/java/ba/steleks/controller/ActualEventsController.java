@@ -8,9 +8,12 @@ import ba.steleks.repository.EventsJpaRepository;
 import ba.steleks.repository.MediaJpaRepository;
 import ba.steleks.util.ProxyHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.awt.print.Pageable;
 
 @RestController
 public class ActualEventsController {
@@ -26,9 +29,11 @@ public class ActualEventsController {
     }
 
     @RequestMapping(path = "/realEvents", method = RequestMethod.GET)
-    public ResponseEntity<?> getRealEvents() {
+    public ResponseEntity<?> getRealEvents(
+            @RequestParam( "page" ) int page,
+            @RequestParam( "size" ) int size) {
         Iterable<Event> result;
-        result = repository.findByEventTypeId(EVENT_TYPE_EVENT);
+        result = repository.findAllByEventTypeId(EVENT_TYPE_EVENT, new PageRequest(page, size));
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new Object() {
@@ -38,8 +43,11 @@ public class ActualEventsController {
                 });
     }
 
+
     @RequestMapping(path = "/realEvents", method = RequestMethod.POST)
-    public ResponseEntity<?> addEvents(@RequestBody EventRequest eventRequest, @RequestHeader(ProxyHeaders.USER_ID) String userId) throws ExternalServiceException {
+    public ResponseEntity<?> addEvents(
+            @RequestBody EventRequest eventRequest,
+            @RequestHeader(ProxyHeaders.USER_ID) String userId) throws ExternalServiceException {
         return eventController.addEventWithType(eventRequest, userId, EVENT_TYPE_EVENT);
     }
 }
