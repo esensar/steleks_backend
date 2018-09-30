@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static java.lang.Thread.sleep;
+
 @RestController
 public class NewsController {
     private static final long EVENT_TYPE_NEWS = 1;
@@ -42,5 +44,10 @@ public class NewsController {
                         public Object events = result;
                     };
                 });
+    }
+    @RequestMapping(path = "/ok", method = RequestMethod.POST)
+    public ResponseEntity ok() throws InterruptedException {
+        Thread.sleep(500);
+        return ResponseEntity.status(HttpStatus.OK).body(' ');
     }
 }
