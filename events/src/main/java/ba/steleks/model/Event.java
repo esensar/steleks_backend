@@ -16,7 +16,9 @@ public class Event {
     private long id;
 
     private String title;
+    @Column(columnDefinition="text")
     private String shortText;
+    @Column(columnDefinition="text")
     private String longText;
     private Timestamp dateTime;
     private int duration;
